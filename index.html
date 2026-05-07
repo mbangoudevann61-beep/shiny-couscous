@@ -1,1 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energie & Build | Système Expert</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a3a5a; /* Bleu Engrenage */
+            --accent: #f1c40f;  /* Jaune Éclair */
+            --secondary: #2c527a; /* Bleu Acier */
+            --bg: #f4f7f6;
+            --white: #ffffff;
+        }
+
+        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background: var(--bg); color: #333; line-height: 1.6; }
+
+        /* HEADER & IDENTITY */
+        header { 
+            background: var(--primary); color: var(--white); padding: 30px 20px; 
+            text-align: center; border-bottom: 6px solid var(--accent);
+        }
+        .slogan { color: var(--accent); font-style: italic; font-size: 0.9rem; margin-top: 10px; }
+
+        /* NAVIGATION */
+        nav { 
+            display: flex; overflow-x: auto; background: var(--secondary); 
+            sticky: top; top: 0; z-index: 1000; scrollbar-width: none;
+        }
+        nav::-webkit-scrollbar { display: none; }
+        nav button { 
+            flex: 1; min-width: 120px; padding: 15px; border: none; 
+            background: none; color: white; cursor: pointer; font-weight: bold;
+            transition: 0.3s; border-bottom: 3px solid transparent;
+        }
+        nav button.active { border-bottom: 3px solid var(--accent); background: rgba(255,255,255,0.1); }
+
+        /* CONTENU */
+        .container { max-width: 1100px; margin: auto; padding: 20px; min-height: 70vh; }
+        .page { display: none; animation: fadeIn 0.4s ease; }
+        .page.active { display: block; }
+
+        /* COMPOSANTS : CARTES DICTIONNAIRE */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { 
+            background: var(--white); padding: 20px; border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-top: 5px solid var(--secondary);
+        }
+        .card h3 { color: var(--primary); margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .norme-tag { background: #e8f0fe; color: #1967d2; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+
+        /* CONTACT */
+        .contact-box { 
+            background: var(--primary); color: white; padding: 40px; 
+            border-radius: 15px; text-align: center; margin-top: 20px;
+        }
+        .contact-box a { color: var(--accent); text-decoration: none; font-size: 1.2rem; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="margin:0;">ENERGIE & BUILD</h1>
+    <div class="slogan">"L'expertise multidisciplinaire pour les défis de demain"</div>
+</header>
+
+<nav id="navBar">
+    <button onclick="switchPage('home', this)" class="active"><i class="fas fa-home"></i> ACCUEIL</button>
+    <button onclick="switchPage('elec', this)"><i class="fas fa-bolt"></i> ÉLEC</button>
+    <button onclick="switchPage('clim', this)"><i class="fas fa-snowflake"></i> FROID/CLIM</button>
+    <button onclick="switchPage('btp', this)"><i class="fas fa-trowel-bricks"></i> BTP</button>
+    <button onclick="switchPage('contact', this)"><i class="fas fa-envelope"></i> CONTACT</button>
+</nav>
+
+<div class="container">
+    
+    <section id="home" class="page active">
+        <h2>Tableau de Bord Energie & Build</h2>
+        <div class="grid">
+            <div class="card">
+                <h3><i class="fas fa-info-circle"></i> À propos</h3>
+                <p>Fondée par <strong>M. MBANGOU Devann</strong>, notre entreprise répond aux besoins critiques en infrastructures techniques avec une approche intégrée.</p>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-chart-line"></i> Performance</h3>
+                <p>Suivi en temps réel des interventions multidisciplinaires.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="elec" class="page">
+        <h2>Dictionnaire & Normes Électricité</h2>
+        <div class="grid">
+            <div class="card">
+                <h3><span class="norme-tag">NF C 15-100</span> Installation</h3>
+                <p>Règles pour locaux d'habitation : Section des câbles, nombre de prises par circuit, protection différentielle 30mA.</p>
+            </div>
+            <div class="card">
+                <h3>Dépannage Rapide</h3>
+                <ul>
+                    <li>Court-circuit : Test d'isolement.</li>
+                    <li>Surcharge : Vérification de l'ampérage disjoncteur.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="clim" class="page">
+        <h2>Expertise Froid & Climatisation</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Fluides Frigorigènes</h3>
+                <p>R32, R410A : Normes de manipulation et récupération obligatoire.</p>
+            </div>
+            <div class="card">
+                <h3>Entretien</h3>
+                <p>Nettoyage filtres, vérification pression gaz, test d'étanchéité annuel.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="btp" class="page">
+        <h2>Maçonnerie, Charpente & Carrelage</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Dosage Béton</h3>
+                <p>Fondations : 350kg/m³ | Dalles : 300kg/m³.</p>
+            </div>
+            <div class="card">
+                <h3>Carrelage</h3>
+                <p>Norme UPEC : Résistance à l'usure, au poinçonnement, à l'eau et aux agents chimiques.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="page">
+        <div class="contact-box">
+            <i class="fas fa-user-tie fa-3x" style="color: var(--accent);"></i>
+            <h2>Direction Générale</h2>
+            <p><strong>M. MBANGOU Devann</strong></p>
+            <hr style="width: 50%; border: 0.5px solid var(--accent);">
+            <p><i class="fas fa-phone"></i> <a href="tel:076372158">076 37 21 58</a></p>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:mbangoudevann61@gmail.com">mbangoudevann61@gmail.com</a></p>
+            <p><i class="fas fa-envelope-open-text"></i> <a href="mailto:energiesbuildbtp@gmail.com">energiesbuildbtp@gmail.com</a></p>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    function switchPage(pageId, btn) {
+        // Masquer toutes les pages
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        // Désactiver tous les boutons
+        document.querySelectorAll('#navBar button').forEach(b => b.classList.remove('active'));
+        
+        // Afficher la page choisie
+        document.getElementById(pageId).classList.add('active');
+        // Activer le bouton cliqué
+        btn.classList.add('active');
+        
+        // Scroll automatique en haut
+        window.scrollTo(0,0);
+    }
+</script>
+
+</body>
+</html>
 
