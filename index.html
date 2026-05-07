@@ -3,61 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energie & Build | Système Expert</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <title>Energie & Build - Système Expert</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #1a3a5a; /* Bleu Engrenage */
-            --accent: #f1c40f;  /* Jaune Éclair */
-            --secondary: #2c527a; /* Bleu Acier */
-            --bg: #f4f7f6;
-            --white: #ffffff;
+            --bleu-fonce: #1a3a5a;
+            --jaune: #f1c40f;
+            --bleu-acier: #2c527a;
+            --gris-clair: #f8f9fa;
         }
 
-        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background: var(--bg); color: #333; line-height: 1.6; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--gris-clair); }
 
-        /* HEADER & IDENTITY */
+        /* --- UI MODERNE --- */
         header { 
-            background: var(--primary); color: var(--white); padding: 30px 20px; 
-            text-align: center; border-bottom: 6px solid var(--accent);
+            background: var(--bleu-fonce); color: white; padding: 25px; 
+            text-align: center; border-bottom: 5px solid var(--jaune);
         }
-        .slogan { color: var(--accent); font-style: italic; font-size: 0.9rem; margin-top: 10px; }
+        .slogan { font-size: 0.85rem; color: var(--jaune); margin-top: 5px; font-style: italic; }
 
-        /* NAVIGATION */
         nav { 
-            display: flex; overflow-x: auto; background: var(--secondary); 
-            sticky: top; top: 0; z-index: 1000; scrollbar-width: none;
+            background: var(--bleu-acier); display: flex; overflow-x: auto; 
+            position: sticky; top: 0; z-index: 100;
         }
-        nav::-webkit-scrollbar { display: none; }
         nav button { 
-            flex: 1; min-width: 120px; padding: 15px; border: none; 
-            background: none; color: white; cursor: pointer; font-weight: bold;
-            transition: 0.3s; border-bottom: 3px solid transparent;
+            flex: 1; padding: 15px; border: none; background: none; color: white;
+            font-weight: bold; cursor: pointer; transition: 0.3s; min-width: 100px;
         }
-        nav button.active { border-bottom: 3px solid var(--accent); background: rgba(255,255,255,0.1); }
+        nav button.active { background: var(--jaune); color: var(--bleu-fonce); }
 
-        /* CONTENU */
-        .container { max-width: 1100px; margin: auto; padding: 20px; min-height: 70vh; }
-        .page { display: none; animation: fadeIn 0.4s ease; }
+        .container { max-width: 1000px; margin: 20px auto; padding: 15px; }
+        .page { display: none; animation: slideIn 0.3s ease; }
         .page.active { display: block; }
 
-        /* COMPOSANTS : CARTES DICTIONNAIRE */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        /* --- CARTES & DICTIONNAIRE --- */
         .card { 
-            background: var(--white); padding: 20px; border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-top: 5px solid var(--secondary);
+            background: white; padding: 20px; border-radius: 12px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px;
+            border-left: 6px solid var(--bleu-acier);
         }
-        .card h3 { color: var(--primary); margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .norme-tag { background: #e8f0fe; color: #1967d2; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .dict-title { color: var(--bleu-fonce); font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        
+        /* --- FORMULAIRE --- */
+        .form-group { display: flex; flex-direction: column; gap: 10px; background: white; padding: 20px; border-radius: 12px; }
+        input, select, textarea { padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
+        .btn-save { background: var(--jaune); color: var(--bleu-fonce); border: none; padding: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; }
 
-        /* CONTACT */
-        .contact-box { 
-            background: var(--primary); color: white; padding: 40px; 
-            border-radius: 15px; text-align: center; margin-top: 20px;
-        }
-        .contact-box a { color: var(--accent); text-decoration: none; font-size: 1.2rem; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -67,106 +59,91 @@
     <div class="slogan">"L'expertise multidisciplinaire pour les défis de demain"</div>
 </header>
 
-<nav id="navBar">
-    <button onclick="switchPage('home', this)" class="active"><i class="fas fa-home"></i> ACCUEIL</button>
-    <button onclick="switchPage('elec', this)"><i class="fas fa-bolt"></i> ÉLEC</button>
-    <button onclick="switchPage('clim', this)"><i class="fas fa-snowflake"></i> FROID/CLIM</button>
-    <button onclick="switchPage('btp', this)"><i class="fas fa-trowel-bricks"></i> BTP</button>
-    <button onclick="switchPage('contact', this)"><i class="fas fa-envelope"></i> CONTACT</button>
+<nav id="navbar">
+    <button onclick="nav('accueil', this)" class="active">ACCUEIL</button>
+    <button onclick="nav('elec', this)">ÉLEC</button>
+    <button onclick="nav('clim', this)">CLIM</button>
+    <button onclick="nav('btp', this)">BTP</button>
+    <button onclick="nav('contact', this)">CONTACT</button>
 </nav>
 
 <div class="container">
     
-    <section id="home" class="page active">
-        <h2>Tableau de Bord Energie & Build</h2>
-        <div class="grid">
-            <div class="card">
-                <h3><i class="fas fa-info-circle"></i> À propos</h3>
-                <p>Fondée par <strong>M. MBANGOU Devann</strong>, notre entreprise répond aux besoins critiques en infrastructures techniques avec une approche intégrée.</p>
-            </div>
-            <div class="card">
-                <h3><i class="fas fa-chart-line"></i> Performance</h3>
-                <p>Suivi en temps réel des interventions multidisciplinaires.</p>
-            </div>
+    <section id="accueil" class="page active">
+        <h2><i class="fas fa-tasks"></i> Gestion des Projets</h2>
+        <div class="form-group">
+            <input type="text" id="client" placeholder="Nom du Client / Chantier">
+            <select id="metier">
+                <option value="Électricité">⚡ Électricité</option>
+                <option value="Froid/Clim">❄️ Froid/Clim</option>
+                <option value="BTP">🏗️ BTP (Maçonnerie/Carrelage)</option>
+            </select>
+            <button class="btn-save" onclick="ajouterChantier()">ENREGISTRER LE PROJET</button>
         </div>
+        <div id="listeChantiers" style="margin-top: 20px;"></div>
     </section>
 
     <section id="elec" class="page">
-        <h2>Dictionnaire & Normes Électricité</h2>
-        <div class="grid">
-            <div class="card">
-                <h3><span class="norme-tag">NF C 15-100</span> Installation</h3>
-                <p>Règles pour locaux d'habitation : Section des câbles, nombre de prises par circuit, protection différentielle 30mA.</p>
-            </div>
-            <div class="card">
-                <h3>Dépannage Rapide</h3>
-                <ul>
-                    <li>Court-circuit : Test d'isolement.</li>
-                    <li>Surcharge : Vérification de l'ampérage disjoncteur.</li>
-                </ul>
-            </div>
+        <div class="card">
+            <div class="dict-title"><i class="fas fa-book"></i> NORMES NF C 15-100</div>
+            <p>Règles essentielles pour la sécurité des installations domestiques. Obligation de mise à la terre et protection différentielle.</p>
+        </div>
+        <div class="card">
+            <div class="dict-title"><i class="fas fa-tools"></i> DEPANNAGE</div>
+            <p>Vérifier l'isolement des conducteurs en cas de déclenchement intempestif du disjoncteur.</p>
         </div>
     </section>
 
     <section id="clim" class="page">
-        <h2>Expertise Froid & Climatisation</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Fluides Frigorigènes</h3>
-                <p>R32, R410A : Normes de manipulation et récupération obligatoire.</p>
-            </div>
-            <div class="card">
-                <h3>Entretien</h3>
-                <p>Nettoyage filtres, vérification pression gaz, test d'étanchéité annuel.</p>
-            </div>
+        <div class="card">
+            <div class="dict-title"><i class="fas fa-snowflake"></i> CYCLE FRIGORIFIQUE</div>
+            <p>Comprendre la relation Pression/Température des fluides comme le R32.</p>
         </div>
     </section>
 
     <section id="btp" class="page">
-        <h2>Maçonnerie, Charpente & Carrelage</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Dosage Béton</h3>
-                <p>Fondations : 350kg/m³ | Dalles : 300kg/m³.</p>
-            </div>
-            <div class="card">
-                <h3>Carrelage</h3>
-                <p>Norme UPEC : Résistance à l'usure, au poinçonnement, à l'eau et aux agents chimiques.</p>
-            </div>
+        <div class="card">
+            <div class="dict-title"><i class="fas fa-trowel-bricks"></i> DOSAGES</div>
+            <p>Béton armé : 350kg de ciment pour 1m3 de béton.</p>
         </div>
     </section>
 
     <section id="contact" class="page">
-        <div class="contact-box">
-            <i class="fas fa-user-tie fa-3x" style="color: var(--accent);"></i>
-            <h2>Direction Générale</h2>
+        <div class="card" style="text-align: center; border-left: none; border-top: 6px solid var(--jaune);">
+            <i class="fas fa-user-circle fa-4xl" style="font-size: 50px; color: var(--bleu-fonce);"></i>
+            <h3>Directeur Général</h3>
             <p><strong>M. MBANGOU Devann</strong></p>
-            <hr style="width: 50%; border: 0.5px solid var(--accent);">
-            <p><i class="fas fa-phone"></i> <a href="tel:076372158">076 37 21 58</a></p>
-            <p><i class="fas fa-envelope"></i> <a href="mailto:mbangoudevann61@gmail.com">mbangoudevann61@gmail.com</a></p>
-            <p><i class="fas fa-envelope-open-text"></i> <a href="mailto:energiesbuildbtp@gmail.com">energiesbuildbtp@gmail.com</a></p>
+            <p><i class="fas fa-phone"></i> 076 37 21 58</p>
+            <p><i class="fas fa-envelope"></i> mbangoudevann61@gmail.com</p>
+            <p><i class="fas fa-at"></i> energiesbuildbtp@gmail.com</p>
         </div>
     </section>
-
 </div>
 
 <script>
-    function switchPage(pageId, btn) {
-        // Masquer toutes les pages
+    // LOGIQUE DE NAVIGATION
+    function nav(pageId, btn) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        // Désactiver tous les boutons
-        document.querySelectorAll('#navBar button').forEach(b => b.classList.remove('active'));
-        
-        // Afficher la page choisie
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
-        // Activer le bouton cliqué
         btn.classList.add('active');
+    }
+
+    // LOGIQUE DE GESTION DES CHANTIERS
+    function ajouterChantier() {
+        const client = document.getElementById('client').value;
+        const metier = document.getElementById('metier').value;
         
-        // Scroll automatique en haut
-        window.scrollTo(0,0);
+        if(!client) return alert("Nom du client requis");
+
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `<strong>${client}</strong><br><small>${metier}</small> - <span style="color:green">En cours</span>`;
+        
+        document.getElementById('listeChantiers').prepend(div);
+        document.getElementById('client').value = "";
     }
 </script>
 
 </body>
 </html>
-
