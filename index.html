@@ -3,53 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energie & Build - Système Expert</title>
+    <title>Energie & Build | Expertise Multidisciplinaire</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root {
-            --bleu-fonce: #1a3a5a;
-            --jaune: #f1c40f;
-            --bleu-acier: #2c527a;
-            --gris-clair: #f8f9fa;
-        }
-
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--gris-clair); }
-
-        /* --- UI MODERNE --- */
-        header { 
-            background: var(--bleu-fonce); color: white; padding: 25px; 
-            text-align: center; border-bottom: 5px solid var(--jaune);
-        }
-        .slogan { font-size: 0.85rem; color: var(--jaune); margin-top: 5px; font-style: italic; }
-
-        nav { 
-            background: var(--bleu-acier); display: flex; overflow-x: auto; 
-            position: sticky; top: 0; z-index: 100;
-        }
-        nav button { 
-            flex: 1; padding: 15px; border: none; background: none; color: white;
-            font-weight: bold; cursor: pointer; transition: 0.3s; min-width: 100px;
-        }
-        nav button.active { background: var(--jaune); color: var(--bleu-fonce); }
-
-        .container { max-width: 1000px; margin: 20px auto; padding: 15px; }
-        .page { display: none; animation: slideIn 0.3s ease; }
-        .page.active { display: block; }
-
-        /* --- CARTES & DICTIONNAIRE --- */
-        .card { 
-            background: white; padding: 20px; border-radius: 12px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px;
-            border-left: 6px solid var(--bleu-acier);
-        }
-        .dict-title { color: var(--bleu-fonce); font-weight: bold; display: flex; align-items: center; gap: 10px; }
-        
-        /* --- FORMULAIRE --- */
-        .form-group { display: flex; flex-direction: column; gap: 10px; background: white; padding: 20px; border-radius: 12px; }
-        input, select, textarea { padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
-        .btn-save { background: var(--jaune); color: var(--bleu-fonce); border: none; padding: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; }
-
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        :root { --bleu: #1a3a5a; --jaune: #f1c40f; --acier: #2c527a; --fond: #f4f7f6; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--fond); color: #333; }
+        header { background: var(--bleu); color: white; padding: 25px; text-align: center; border-bottom: 5px solid var(--jaune); }
+        .slogan { font-size: 0.85rem; color: var(--jaune); font-style: italic; margin-top: 5px; }
+        nav { background: var(--acier); display: flex; overflow-x: auto; position: sticky; top: 0; z-index: 100; }
+        nav button { flex: 1; padding: 15px; border: none; background: none; color: white; font-weight: bold; cursor: pointer; min-width: 100px; }
+        nav button.active { background: var(--jaune); color: var(--bleu); }
+        .container { max-width: 900px; margin: 20px auto; padding: 15px; }
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.3s; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px; border-left: 6px solid var(--acier); }
+        .form-group { display: flex; flex-direction: column; gap: 10px; background: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; }
+        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+        .btn-save { background: var(--jaune); color: var(--bleu); border: none; padding: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+        .project-item { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .badge { background: var(--acier); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -60,59 +34,38 @@
 </header>
 
 <nav id="navbar">
-    <button onclick="nav('accueil', this)" class="active">ACCUEIL</button>
-    <button onclick="nav('elec', this)">ÉLEC</button>
-    <button onclick="nav('clim', this)">CLIM</button>
-    <button onclick="nav('btp', this)">BTP</button>
-    <button onclick="nav('contact', this)">CONTACT</button>
+    <button onclick="showPage('accueil')" id="btn-accueil" class="active"><i class="fas fa-tasks"></i> PROJETS</button>
+    <button onclick="showPage('dico')"><i class="fas fa-book"></i> MÉTIERS</button>
+    <button onclick="showPage('contact')"><i class="fas fa-user"></i> CONTACT</button>
 </nav>
 
 <div class="container">
-    
     <section id="accueil" class="page active">
-        <h2><i class="fas fa-tasks"></i> Gestion des Projets</h2>
         <div class="form-group">
-            <input type="text" id="client" placeholder="Nom du Client / Chantier">
+            <h3>Nouveau Chantier</h3>
+            <input type="text" id="client" placeholder="Nom du Client ou Site">
             <select id="metier">
                 <option value="Électricité">⚡ Électricité</option>
                 <option value="Froid/Clim">❄️ Froid/Clim</option>
                 <option value="BTP">🏗️ BTP (Maçonnerie/Carrelage)</option>
             </select>
-            <button class="btn-save" onclick="ajouterChantier()">ENREGISTRER LE PROJET</button>
+            <button class="btn-save" onclick="ajouterProjet()"><i class="fas fa-cloud-upload-alt"></i> ENREGISTRER AU CLOUD</button>
         </div>
-        <div id="listeChantiers" style="margin-top: 20px;"></div>
+        <div id="listeProjets">Chargement des données en direct...</div>
     </section>
 
-    <section id="elec" class="page">
-        <div class="card">
-            <div class="dict-title"><i class="fas fa-book"></i> NORMES NF C 15-100</div>
-            <p>Règles essentielles pour la sécurité des installations domestiques. Obligation de mise à la terre et protection différentielle.</p>
-        </div>
-        <div class="card">
-            <div class="dict-title"><i class="fas fa-tools"></i> DEPANNAGE</div>
-            <p>Vérifier l'isolement des conducteurs en cas de déclenchement intempestif du disjoncteur.</p>
-        </div>
-    </section>
-
-    <section id="clim" class="page">
-        <div class="card">
-            <div class="dict-title"><i class="fas fa-snowflake"></i> CYCLE FRIGORIFIQUE</div>
-            <p>Comprendre la relation Pression/Température des fluides comme le R32.</p>
-        </div>
-    </section>
-
-    <section id="btp" class="page">
-        <div class="card">
-            <div class="dict-title"><i class="fas fa-trowel-bricks"></i> DOSAGES</div>
-            <p>Béton armé : 350kg de ciment pour 1m3 de béton.</p>
-        </div>
+    <section id="dico" class="page">
+        <h2>Dictionnaire Technique</h2>
+        <div class="card"><h3>⚡ Électricité</h3><p>Norme NF C 15-100 : Sécurité des circuits, disjoncteurs et mise à la terre.</p></div>
+        <div class="card"><h3>❄️ Froid/Clim</h3><p>Cycles frigorifiques : Compression, Condensation, Détente, Évaporation.</p></div>
+        <div class="card"><h3>🏗️ BTP</h3><p>Dosages : Fondations (350kg/m³). Pose carrelage : Double encollage recommandé.</p></div>
     </section>
 
     <section id="contact" class="page">
         <div class="card" style="text-align: center; border-left: none; border-top: 6px solid var(--jaune);">
-            <i class="fas fa-user-circle fa-4xl" style="font-size: 50px; color: var(--bleu-fonce);"></i>
-            <h3>Directeur Général</h3>
-            <p><strong>M. MBANGOU Devann</strong></p>
+            <i class="fas fa-user-tie fa-3x" style="color: var(--bleu);"></i>
+            <h3>M. MBANGOU Devann</h3>
+            <p><strong>Fondateur & Directeur Général</strong></p>
             <p><i class="fas fa-phone"></i> 076 37 21 58</p>
             <p><i class="fas fa-envelope"></i> mbangoudevann61@gmail.com</p>
             <p><i class="fas fa-at"></i> energiesbuildbtp@gmail.com</p>
@@ -120,30 +73,52 @@
     </section>
 </div>
 
-<script>
-    // LOGIQUE DE NAVIGATION
-    function nav(pageId, btn) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-        btn.classList.add('active');
-    }
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // LOGIQUE DE GESTION DES CHANTIERS
-    function ajouterChantier() {
+    // VOTRE CONFIGURATION CDN
+    const firebaseConfig = {
+        apiKey: "AIzaSyAegVUDmiFQRcc8K2fTDSuDpnn9o1M3NOo",
+        authDomain: "energies-499ef.firebaseapp.com",
+        projectId: "energies-499ef",
+        storageBucket: "energies-499ef.firebasestorage.app",
+        messagingSenderId: "143690903891",
+        appId: "1:143690903891:web:e914941e31c8254690b1a6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const colRef = collection(db, 'chantiers');
+
+    // Action d'ajout
+    window.ajouterProjet = async () => {
         const client = document.getElementById('client').value;
         const metier = document.getElementById('metier').value;
+        if(!client) return alert("Veuillez saisir un nom");
         
-        if(!client) return alert("Nom du client requis");
-
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `<strong>${client}</strong><br><small>${metier}</small> - <span style="color:green">En cours</span>`;
-        
-        document.getElementById('listeChantiers').prepend(div);
+        await addDoc(colRef, { client, metier, date: new Date().toISOString() });
         document.getElementById('client').value = "";
     }
-</script>
 
+    // Lecture temps réel
+    const q = query(colRef, orderBy('date', 'desc'));
+    onSnapshot(q, (snap) => {
+        const list = document.getElementById('listeProjets');
+        list.innerHTML = "";
+        snap.docs.forEach(doc => {
+            const d = doc.data();
+            list.innerHTML += `<div class="project-item"><strong>${d.client}</strong><span class="badge">${d.metier}</span></div>`;
+        });
+    });
+
+    // Navigation
+    window.showPage = (id) => {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.getElementById('btn-'+id)?.classList.add('active');
+    }
+</script>
 </body>
 </html>
